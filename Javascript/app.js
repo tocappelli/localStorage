@@ -1,4 +1,4 @@
-// CREACION DE PRODUCTOS
+// CREACION DE PRODUCTOS : AGREGO PRODUCTOS Y LOS ENVIA//
 class Product {
   constructor(accountName, amount, tableNumber,productos,clarification){
    this.accountName = accountName;
