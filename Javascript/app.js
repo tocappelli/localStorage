@@ -77,10 +77,10 @@ class Ui{
  // FUNCION LOCAL STORAGE //
  
  accountNameLocal(){
- localStorage.setItem("Cuenta de:", document.getElementById("accountName").value);
+ localStorage.setItem("Cuenta de:", JSON.stringify(document.getElementById("accountName").value));
   }
 }
-document.getElementById("accountName").value = localStorage.getItem("Cuenta de:") 
+document.getElementById("accountName").value = JSON.parse( localStorage.getItem("Cuenta de:")); 
 
 
 // EVENTOS DOM //
