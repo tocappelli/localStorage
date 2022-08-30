@@ -10,18 +10,14 @@ class Product {
  }
  
 }
-
-
-
-
 // METODOS DENTRO DE LOS OBJETOS //
 // FUNCION PARA AGREGAR ELEMENTOS - CREO UN INNER HTML//
 
 class Ui{
   addProduct(product){
     const productList = document.getElementById ("product-list");
-    const elemnt = document.createElement (`div`);
-    elemnt.innerHTML = `
+    const element = document.createElement (`div`);
+    element.innerHTML = `
     <div class= "card text-center mb-4">
           <div class = "card-body">
             <strong>Cuenta de:</strong>:${product.accountName}
@@ -33,31 +29,40 @@ class Ui{
           </div>
     </div>
     `;
-    productList.appendChild(elemnt);
-    
-    
-    
+    productList.appendChild(element);
+   
   }
- 
-
-
-  // FUNCION PARA RESETEAR FORMULARIO //
+   // FUNCION PARA RESETEAR FORMULARIO //
 
   resetForm () {
     document.getElementById ("product-form").reset ();
   }
 
+  // MENSAJE CUANDO CIERRO EL PEDIDO ENVIADO CON SUGAR SYNTAX //
   deleteProduct(element){
-    if (element.name === "close"){
-      element.parentElement.parentElement.parentElement.remove();
-      this.showMessage(`Producto Eliminado satisfactoriamente`, `info`);
-    }
-
+  element.name === "close" && element.parentElement.parentElement.parentElement.remove();
+  this.showMessageDelete();
   }
 
+ // FUNCION PARA MOSTRAR MENSAJE //
 
-// FUNCION PARA MOSTRAR MENSAJE //
+showMessageOk(){
+  Swal.fire(
+    'Producto agregado satisfactoriamente!',
+    'Agrega mas productos',
+    'success'
+  )
+}
+showMessageDelete(){
+  Swal.fire('Producto eliminado correctamente')
+}
 
+
+ 
+
+
+
+/*
   showMessage(message, cssClass){
    const div = document.createElement (`div`);
    div.className = `alert alert-${cssClass} mt-5` ;
@@ -70,16 +75,19 @@ class Ui{
     document.querySelector (`.alert`).remove();
 
    },3000)
-
+   
   }
-
+*/
 
  // FUNCION LOCAL STORAGE //
- 
  accountNameLocal(){
  localStorage.setItem("Cuenta de:", document.getElementById("accountName").value);
+
+
   }
+
 }
+
 document.getElementById("accountName").value =  localStorage.getItem("Cuenta de:"); 
 
 
@@ -93,30 +101,27 @@ document.getElementById ("product-form")
   const productos = document.getElementById("productos").value;
   const clarification = document.getElementById("textarea").value;
   
-  
+ 
   //Productos Nuevos llamando al metodo UI (interfaz de usuario) //
    
    const product = new Product(accountName,amount,tableNumber,productos,clarification);
    
-   
-   const ui = new Ui ();
-   if (accountName === '' || amount === '' || tableNumber === '' || productos === ''){
-    return ui.showMessage('Faltan campos por completar', 'danger');
-   }
-
-  
-
+    const ui = new Ui();
 
    ui.addProduct (product);
    ui.accountNameLocal();
    ui.resetForm();
-   ui.showMessage (`Producto agregado satisfactoriamente`, `success`);
+   ui.showMessageOk();
+   
+   
    
 
   //Cancelar refresco de Pagina //
   e.preventDefault();
   
+  
 });
+
 
 
 // Evento para boton de CLOSE "X"//
