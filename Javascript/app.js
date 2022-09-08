@@ -1,9 +1,10 @@
 // CREACION DE PRODUCTOS : AGREGO PRODUCTOS Y LOS ENVIA//
 class Product {
-  constructor(accountName, amount, tableNumber,productos,clarification){
+  constructor(accountName, clientName,tableNumber, amount, productos,clarification){
    this.accountName = accountName;
-   this.amount = amount;
+   this.clientName = clientName;
    this.tableNumber = tableNumber;
+   this.amount = amount;
    this.productos = productos;
    this.clarification = clarification;
    
@@ -20,11 +21,12 @@ class Ui{
     element.innerHTML = `
     <div class= "card text-center mb-4">
           <div class = "card-body">
-            <strong>Cuenta de:</strong>:${product.accountName}
-            <strong>Producto</strong>:${product.productos}
-            <strong>Cantidad</strong>:${product.amount}
-            <strong>Numero de Mesa</strong>:${product.tableNumber}
-            <strong>Aclaracion</strong>:${product.clarification} 
+            <strong>Cuenta de:</strong>:${product.accountName}<br>
+            <strong>Nombre del solicitante</strong>:${product.clientName}<br>
+            <strong>Numero de Mesa</strong>:${product.tableNumber}<br>
+            <strong>Producto</strong>:${product.productos}<br>
+            <strong>Cantidad</strong>:${product.amount}<br>
+            <strong>Aclaracion</strong>:${product.clarification}<br> 
             <button name ="close" type="button" class="btn-close text-center" aria-label="Close"></button> 
           </div>
     </div>
@@ -60,29 +62,10 @@ showMessageDelete(){
 
  
 
-
-
-/*
-  showMessage(message, cssClass){
-   const div = document.createElement (`div`);
-   div.className = `alert alert-${cssClass} mt-5` ;
-   div.appendChild(document.createTextNode(message));
-   // mostrando en el html //
-   const container = document.querySelector (`.container`);
-   const app = document.querySelector (`#aplicacion`);
-   container.insertBefore (div, app);
-   setTimeout (function(){
-    document.querySelector (`.alert`).remove();
-
-   },3000)
-   
-  }
-*/
-
  // FUNCION LOCAL STORAGE //
  accountNameLocal(){
  localStorage.setItem("Cuenta de:", document.getElementById("accountName").value);
-
+ 
 
   }
 
@@ -96,6 +79,7 @@ document.getElementById("accountName").value =  localStorage.getItem("Cuenta de:
 document.getElementById ("product-form")
 .addEventListener("submit", function (e){
   const accountName = document.getElementById("accountName").value ;
+  const clientName= document.getElementById("clientName").value ;
   const amount = document.getElementById("amount").value;
   const tableNumber = document.getElementById("tableNumber").value;
   const productos = document.getElementById("productos").value;
@@ -104,7 +88,7 @@ document.getElementById ("product-form")
  
   //Productos Nuevos llamando al metodo UI (interfaz de usuario) //
    
-   const product = new Product(accountName,amount,tableNumber,productos,clarification);
+   const product = new Product(accountName,clientName, amount,tableNumber,productos,clarification);
    
     const ui = new Ui();
 
@@ -127,8 +111,33 @@ document.getElementById ("product-form")
 // Evento para boton de CLOSE "X"//
 document.getElementById("product-list").addEventListener("click", function(e){
   const ui = new Ui();
-  ui.deleteProduct(e.target)
+  ui.deleteProduct(e.target);
+
 })
+
+const tabla = document.querySelector("#productos");
+
+// FUNCION PARA CARGAR PRODUCTOS DESDE EL JASON
+function cargarProducto(){
+  fetch("./Javascript/data.json") //selecciono la carpeta donde se encuentra la data json
+      .then(res=>res.json()) //selecciono como quiero que se vea el json
+      // CREO UN SELECT PARA QUE EL USUARIO SELECCIONES LOS PRODUCTOS QUE SE ENCUENTRAN EN EL JSON
+      .then(listaProductos=> {
+         listaProductos.forEach(listaProductos=> {
+          const select = document.createElement("option");
+          select.innerHTML = `
+          <option>${listaProductos.name}</option>
+
+          `;
+          tabla.appendChild(select);
+        })
+      }) 
+}
+cargarProducto();
+
+
+
+
 
 
 

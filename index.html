@@ -26,29 +26,34 @@
           </div>
            <form id="product-form" class="card-body ">
                <div class="form-group">
-                <input type="text" id="accountName" placeholder="Cuenta a nombre de:" class="form-control mt-3"> 
+                <h6>Cuenta total a nombre</h6>
+                <input type="text" id="accountName" placeholder="Cuenta a nombre de:" class="form-control mt-3">
+                <h6 class="mt-3">Ingrese el nombre del solicitante</h6>
+                <input type="text" id="clientName" placeholder="Nombre del solicitante" class="form-control mt-3">  
+               </div>
+               <div class="form-group">
+                <h6 class="mt-3">Ingrese el numero de mesa</h6>
+                <input type="number" min="1" id="tableNumber" placeholder="Ingrese el Numero de Mesa" class="form-control mt-3">
                </div>
                <div class="text-start mt-3" >
-                <h6>Elija el producto</h6>
+                <h6>Seleccione la Bebida</h6>
                </div>
-               <select id="productos" class="form-select mt-2" aria-label="Default select example">
-              <option value="Cerveza Heineken 1lt">Cerveza Heineken 1lt</option>
-                <option value="Cocacola 1.5lt">Cocacola 1.5lt</option>
-                <option value="Agua s/g 1.5 lt">Agua s/g 1.5 lt</option>
-              </select>
+               <select id="productos" class="form-select mt-2"></select>
                <div class="form-group">
-                <input type="number"  id="amount" placeholder="Cantidad" class="form-control mt-3">
+                <h6 class="mt-3">Seleccione la cantidad</h6>
+                <input type="number" min="1"  id="amount" placeholder="Cantidad" class="form-control mt-3">
                </div>
-               <div class="form-group">
-                <input type="number" id="tableNumber" placeholder="Ingrese el Numero de Mesa" class="form-control mt-3">
-               </div>
+              
                <div class="form-group mt-3  ">
                 <h6>Aclaraciones</h6>
                 <textarea  id="textarea" cols="65" rows="5"></textarea>
                </div>
                
                <input type="submit" value="Enviar Pedido" class="btn btn-primary  col-12 mt-3">
+               
            </form>
+           
+            
         </div>
       </div>
         <div id="product-list" class="col-md 8 text-center">
